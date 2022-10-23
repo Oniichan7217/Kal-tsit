@@ -1,2 +1,2 @@
-Kal'tsit bot
-Bot for general purpose
+# Archetto bot
+Bot for report weather and server information.
