@@ -3,6 +3,7 @@ import os #for hiding my bot token
 import keep_alive 
 import requests
 import json 
+import nacl
 from discord.ext import commands
 
 client = discord.Client()
@@ -84,6 +85,20 @@ async def weather_error(ctx, error):
         await ctx.send("This command is on cooldown.")
     elif isinstance(error, commands.CommandInvokeError):
         await ctx.send("Not a valid city or Country.")
+
+@client.command()
+async def play(ctx, url: str):
+    # Join the voice channel
+    voice_channel = ctx.author.voice.channel
+    vc = await voice_channel.connect()
+
+    # Play the music
+    vc.play(discord.FFmpegPCMAudio(url))
+
+@client.command()
+async def stop(ctx):
+    # Disconnect from the voice channel
+    await ctx.voice_client.disconnect()
 
 
 keep_alive.keep_alive()
